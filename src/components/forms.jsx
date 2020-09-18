@@ -17,17 +17,18 @@ const validateCents = (cents) => {
   if (
     cents === undefined ||
     cents === "" ||
-    (cents.length <= 2 && parseInt(cents))
+    (cents.length <= 2 && !isNaN(cents))
   )
     return true;
   return false;
 };
 
-const formatValue = (value) => {
-  if (value.match(twoDecimalPlaces)) return value;
-  if (value.match(oneDecimalPlaces)) return value + "0";
-  if (value.match(noDecimalPlaces)) return value + "00";
-  return value + ".00";
+const formatPrice = (price) => {
+  price = String(price).replace(/,/gi, "");
+  if (price.match(oneDecimalPlaces)) price += "0";
+  else if (price.match(noDecimalPlaces)) price += "00";
+  else if (!price.match(twoDecimalPlaces)) price += ".00";
+  return price;
 };
 
 const ItemForm = (props) => {
@@ -46,8 +47,9 @@ const ItemForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      console.log(formatValue(item["price"]));
-      props.onSubmitItem(item);
+      console.log(formatPrice(item["price"]));
+      const formattedItem = { name: item.name, price: formatPrice(item.price) };
+      props.onSubmitItem(formattedItem);
       props.toggleItemFormOff();
     }
   };
