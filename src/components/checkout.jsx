@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import formatPrice from "./priceFormatter";
 
-const headers = ["Product ID", "Product Name", "Quantity", "Price Per Unit"];
+const headers = ["Porgdmuct ID", "Product Name", "Quantity", "Price Per Unit"];
 
 const Checkout = (props) => {
-  const counters = props.location.state.items.filter(
+  const counters = props.location.state.counters.filter(
     (counter) => !(counter.value === 0)
   );
   const total_counter = props.location.state.total;

@@ -4,8 +4,8 @@ import Counters from "./components/counters";
 
 class App extends Component {
   state = {
-    counters: sessionStorage.getItem("items")
-      ? JSON.parse(sessionStorage.getItem("items"))
+    counters: sessionStorage.getItem("counters")
+      ? JSON.parse(sessionStorage.getItem("counters"))
       : [],
   };
 
@@ -14,7 +14,7 @@ class App extends Component {
     const index = counters.indexOf(counter);
     counters[index] = { ...counters[index] };
     counters[index].value++;
-    sessionStorage.setItem("items", JSON.stringify(counters));
+    sessionStorage.setItem("counters", JSON.stringify(counters));
     this.setState({ counters });
   };
 
@@ -26,8 +26,8 @@ class App extends Component {
       value: 0,
     });
     this.setState({ counters });
-    sessionStorage.setItem("items", JSON.stringify(counters));
-    console.log("Stored Items:", localStorage.getItem("items"));
+    sessionStorage.setItem("counters", JSON.stringify(counters));
+    console.log("Stored Items:", localStorage.getItem("counters"));
     console.log("counters", counters);
   };
 
@@ -36,7 +36,7 @@ class App extends Component {
     const index = counters.indexOf(counter);
     counters[index] = { ...counters[index] };
     counters[index].value--;
-    sessionStorage.setItem("items", JSON.stringify(counters));
+    sessionStorage.setItem("counters", JSON.stringify(counters));
     this.setState({ counters });
   };
 
@@ -45,13 +45,13 @@ class App extends Component {
       c.value = 0;
       return c;
     });
-    sessionStorage.setItem("items", JSON.stringify(counters));
+    sessionStorage.setItem("counters", JSON.stringify(counters));
     this.setState({ counters });
   };
 
   handleDelete = (counterId) => {
     const counters = this.state.counters.filter((c) => c.id !== counterId);
-    sessionStorage.setItem("items", JSON.stringify(counters));
+    sessionStorage.setItem("counters", JSON.stringify(counters));
     this.setState({ counters });
   };
 

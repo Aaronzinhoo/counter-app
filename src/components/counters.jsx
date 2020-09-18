@@ -74,7 +74,7 @@ class Counters extends Component {
             <Link
               to={{
                 pathname: "/checkout",
-                state: { items: counters, total: total_counter },
+                state: { counters: counters, total: total_counter },
               }}
             >
               <button className="checkoutbtn" onClick={this.handleCheckout}>
