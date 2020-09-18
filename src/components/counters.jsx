@@ -1,7 +1,20 @@
 import React, { Component } from "react";
 import Counter from "./counter";
+import ItemForm from "./forms";
 
 class Counters extends Component {
+  state = {
+    isAddingItem: false,
+  };
+
+  toggleItemFormOn = () => {
+    this.setState({ isAddingItem: true });
+  };
+
+  toggleItemFormOff = () => {
+    this.setState({ isAddingItem: false });
+  };
+
   render() {
     const {
       onReset,
@@ -9,10 +22,15 @@ class Counters extends Component {
       onDelete,
       onDecrement,
       counters,
-      onRestart
+      onRestart,
+      onAddItem,
     } = this.props;
+
     return (
       <div>
+        <button className="btn btn-primary m-2" onClick={this.toggleItemFormOn}>
+          <i className="fa fa-plus" aria-hidden="true" />
+        </button>
         <button
           className="btn btn-success m-2"
           onClick={onReset}
@@ -27,7 +45,13 @@ class Counters extends Component {
         >
           <i className="fa fa-recycle" aria-hidden="true" />
         </button>
-        {counters.map(counter => (
+        {this.state.isAddingItem && (
+          <ItemForm
+            onSubmitItem={onAddItem}
+            toggleItemFormOff={this.toggleItemFormOff}
+          />
+        )}
+        {counters.map((counter) => (
           <Counter
             key={counter.id}
             counter={counter}

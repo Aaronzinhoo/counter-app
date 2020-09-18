@@ -4,15 +4,10 @@ import Counters from "./components/counters";
 
 class App extends Component {
   state = {
-    counters: [
-      { id: 1, value: 0 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
-      { id: 4, value: 0 }
-    ]
+    counters: [],
   };
 
-  handleIncrement = counter => {
+  handleIncrement = (counter) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counters[index] };
@@ -20,7 +15,18 @@ class App extends Component {
     this.setState({ counters });
   };
 
-  handleDecrement = counter => {
+  handleAddItem = (item) => {
+    const counters = this.state.counters.concat({
+      id: Math.floor(Math.random() * 100000),
+      price: item["price"],
+      name: item["name"],
+      value: 0,
+    });
+    this.setState({ counters });
+    console.log("counters", this.state.counters);
+  };
+
+  handleDecrement = (counter) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counters[index] };
@@ -29,15 +35,15 @@ class App extends Component {
   };
 
   handleReset = () => {
-    const counters = this.state.counters.map(c => {
+    const counters = this.state.counters.map((c) => {
       c.value = 0;
       return c;
     });
     this.setState({ counters });
   };
 
-  handleDelete = counterId => {
-    const counters = this.state.counters.filter(c => c.id !== counterId);
+  handleDelete = (counterId) => {
+    const counters = this.state.counters.filter((c) => c.id !== counterId);
     this.setState({ counters });
   };
 
@@ -49,7 +55,7 @@ class App extends Component {
     return (
       <div>
         <NavBar
-          totalCounters={this.state.counters.filter(c => c.value > 0).length}
+          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
         />
         <main className="container">
           <Counters
@@ -59,6 +65,7 @@ class App extends Component {
             onDecrement={this.handleDecrement}
             onDelete={this.handleDelete}
             onRestart={this.handleRestart}
+            onAddItem={this.handleAddItem}
           />
         </main>
       </div>

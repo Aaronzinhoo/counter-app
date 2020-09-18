@@ -1,0 +1,21 @@
+.form-inline{
+    flex-flow: row wrap;
+}
+
+.form-inline label{
+    margin: 5px 10px 5px 0;
+}
+
+.form-inline input{
+    margin: 3px 5px 3px 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.form-inline button{
+    margin: 3px 5px;
+    border: 1px solid #ddd;
+    background-color: dodgerblue;
+    color: white
+}
