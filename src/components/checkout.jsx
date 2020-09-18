@@ -1,10 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import formatPrice from "./priceFormatter";
 
 const headers = ["Product ID", "Product Name", "Quantity", "Price Per Unit"];
 
 const Checkout = (props) => {
+  const counters = props.location.state.items.filter(
+    (counter) => !(counter.value === 0)
+  );
   const total_counter = props.location.state.total;
   const tableRow = ({ id, name, value, price }) => (
     <tr>
@@ -27,7 +31,7 @@ const Checkout = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.location.state.items.map((item) => tableRow(item))}
+          {counters.map((item) => tableRow(item))}
           <tr style={{ backgroundColor: "lightgreen" }}>
             <td></td>
             <td style={{ fontWeight: "bold" }}>{total_counter.name}</td>
@@ -38,6 +42,11 @@ const Checkout = (props) => {
           </tr>
         </tbody>
       </Table>
+      <div>
+        <Link to="/">
+          <button className="btn btn-primary">Back To Shopping</button>
+        </Link>
+      </div>
     </div>
   );
 };
