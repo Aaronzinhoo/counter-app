@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Counter from "./counter";
 import ItemForm from "./forms";
+import "../static/counters.css";
 
 class Counters extends Component {
   state = {
@@ -67,7 +69,19 @@ class Counters extends Component {
           );
         })}
         {total_counter["value"] > 0 && (
-          <Counter key={total_counter.id} counter={total_counter} />
+          <div>
+            <Counter key={total_counter.id} counter={total_counter} />
+            <Link
+              to={{
+                pathname: "/checkout",
+                state: { items: counters, total: total_counter },
+              }}
+            >
+              <button className="checkoutbtn" onClick={this.handleCheckout}>
+                Checkout
+              </button>
+            </Link>
+          </div>
         )}
       </div>
     );

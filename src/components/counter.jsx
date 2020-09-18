@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-
-const formatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+import formatPrice from "./priceFormatter";
 
 class Counter extends Component {
   render() {
@@ -67,10 +63,9 @@ class Counter extends Component {
     const { value } = this.props.counter;
     return value === 0 ? "Zero" : value;
   };
-
   formatPrice = () => {
-    let { price } = this.props.counter;
-    return formatter.format(price);
+    const { price } = this.props.counter;
+    return formatPrice(price);
   };
 }
 
