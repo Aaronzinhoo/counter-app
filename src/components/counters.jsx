@@ -26,6 +26,8 @@ class Counters extends Component {
       onAddItem,
     } = this.props;
 
+    let total_counter = { id: "final", name: "Total:", price: 0.0, value: 0 };
+
     return (
       <div>
         <button className="btn btn-primary m-2" onClick={this.toggleItemFormOn}>
@@ -51,15 +53,22 @@ class Counters extends Component {
             toggleItemFormOff={this.toggleItemFormOff}
           />
         )}
-        {counters.map((counter) => (
-          <Counter
-            key={counter.id}
-            counter={counter}
-            onIncrement={onIncrement}
-            onDecrement={onDecrement}
-            onDelete={onDelete}
-          />
-        ))}
+        {counters.map((counter) => {
+          total_counter["value"] += counter["value"];
+          total_counter["price"] += counter["price"] * counter["value"];
+          return (
+            <Counter
+              key={counter.id}
+              counter={counter}
+              onIncrement={onIncrement}
+              onDecrement={onDecrement}
+              onDelete={onDelete}
+            />
+          );
+        })}
+        {total_counter["value"] > 0 && (
+          <Counter key={total_counter.id} counter={total_counter} />
+        )}
       </div>
     );
   }
